@@ -1,9 +1,12 @@
 package com.example.recyclerviewfilter
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.view.View
 import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -56,8 +59,17 @@ class MainActivity : AppCompatActivity(), TextWatcher {
         recyclerView!!.layoutManager =
             LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
         recyclerView!!.adapter = adapter
-    }
 
+        adapter!!.setItemClickListener(object : RecyclerViewAdapter.OnItemClickListener {
+            override fun onClick(v: View, position: Int) {
+                val intent = Intent(applicationContext, SecondActivity::class.java)
+                intent.putExtra("position", position)
+                startActivity(intent)
+                finish()
+                Log.e("#####", "position $position")
+            }
+        })
+    }
 
 
     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -72,4 +84,6 @@ class MainActivity : AppCompatActivity(), TextWatcher {
     override fun afterTextChanged(p0: Editable?) {
 
     }
+
+
 }

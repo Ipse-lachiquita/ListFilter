@@ -25,6 +25,19 @@ class RecyclerViewAdapter(context: Context, list: ArrayList<list>) : RecyclerVie
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.textView.text = filteredList!![position].name
         holder.textView1.text = filteredList!![position].friend
+
+        holder.itemView.setOnClickListener{
+            itemClickListener.onClick(it, position)
+        }
+    }
+
+    interface OnItemClickListener{
+        fun onClick(v:View,position: Int)
+    }
+    private lateinit var itemClickListener: OnItemClickListener
+
+    fun setItemClickListener(itemClickListener: OnItemClickListener){
+        this.itemClickListener = itemClickListener
     }
 
     override fun getItemCount(): Int {
