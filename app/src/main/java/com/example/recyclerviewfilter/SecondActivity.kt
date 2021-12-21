@@ -7,7 +7,7 @@ import android.widget.TextView
 class SecondActivity : AppCompatActivity() {
 
     private lateinit var text: TextView
-    private var value: Int = 0
+    private var value: String = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +17,7 @@ class SecondActivity : AppCompatActivity() {
         text = findViewById(R.id.text_view)
         var intent = intent
 
-        value = intent.getIntExtra("position", 0)
+        value = intent.getStringExtra("position")!!
         text.text = value.toString()
 
     }

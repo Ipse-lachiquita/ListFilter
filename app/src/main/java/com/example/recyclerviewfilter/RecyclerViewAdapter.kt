@@ -1,6 +1,7 @@
 package com.example.recyclerviewfilter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,7 @@ class RecyclerViewAdapter(context: Context, list: ArrayList<list>) : RecyclerVie
     private var context: Context? = context
     var unFilteredList: ArrayList<list>? = list
     var filteredList: ArrayList<list>? = list
-
+    var items: ArrayList<list> = list
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.recyclerview_row, parent, false)
@@ -26,13 +27,17 @@ class RecyclerViewAdapter(context: Context, list: ArrayList<list>) : RecyclerVie
         holder.textView.text = filteredList!![position].name
         holder.textView1.text = filteredList!![position].friend
 
+        Log.e("####", filteredList!![position].no!!.toString())
+        Log.e("####", filteredList!![position].name!!)
+        Log.e("####", filteredList!![position].friend!!)
+
         holder.itemView.setOnClickListener{
-            itemClickListener.onClick(it, position)
+            itemClickListener.onClick(it, position, filteredList!!)
         }
     }
 
     interface OnItemClickListener{
-        fun onClick(v:View,position: Int)
+        fun onClick(v:View,position: Int, data: ArrayList<list>)
     }
     private lateinit var itemClickListener: OnItemClickListener
 
@@ -48,6 +53,10 @@ class RecyclerViewAdapter(context: Context, list: ArrayList<list>) : RecyclerVie
         var textView: TextView = itemView.findViewById<View>(R.id.textview) as TextView
         var textView1: TextView = itemView.findViewById(R.id.textview1)
 
+    }
+
+    fun getFilterList(): ArrayList<list> {
+        return filteredList!!
     }
 
     override fun getFilter(): Filter? {

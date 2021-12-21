@@ -33,24 +33,29 @@ class MainActivity : AppCompatActivity(), TextWatcher {
         editText = findViewById<EditText>(R.id.edittext)
         editText!!.addTextChangedListener(this)
 
+        data.no = 1
         data.name = "박씨"
         data.friend = "교회친구"
         items.add(0, data)
 
+        data1.no = 2
         data1.name = "김씨"
         data1.friend = "친한친구"
 
         items.add(1, data1)
 
+        data2.no = 3
         data2.name = "이씨"
         data2.friend = "반친구"
 
         items.add(2, data2)
 
+        data3.no = 4
         data3.name = "정씨"
         data3.friend = "학원친구"
         items.add(3, data3)
 
+        data4.no = 5
         data4.name = "오씨"
         data4.friend = "친한친구"
         items.add(4, data4)
@@ -61,12 +66,12 @@ class MainActivity : AppCompatActivity(), TextWatcher {
         recyclerView!!.adapter = adapter
 
         adapter!!.setItemClickListener(object : RecyclerViewAdapter.OnItemClickListener {
-            override fun onClick(v: View, position: Int) {
+
+            override fun onClick(v: View, position: Int, data: ArrayList<list>) {
                 val intent = Intent(applicationContext, SecondActivity::class.java)
-                intent.putExtra("position", position)
+                intent.putExtra("position", adapter!!.getFilterList()[position].name)
                 startActivity(intent)
                 finish()
-                Log.e("#####", "position $position")
             }
         })
     }
